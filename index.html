@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>VueTypedStrings</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<style>
+    .on {
+        padding: 10px;
+        background: #003366;
+    }
+
+    .off {
+        padding: 10px;
+        background: #0086b3;
+    }
+
+    body {
+        font-family: Roboto, sans-serif;
+        font-size: 2.75rem;
+    }
+
+</style>
+<body>
+<div style="text-align: center">
+    Pyro : <vue-typed-strings style="color: #0086b3;font-weight: bold;text-decoration:line-through" :speed="100" @stoped="playing2=true" :playing.sync="playing" :loop="false"
+                       :strings="[{wait:1000,speed:60,words:' your content wherever you are. '},{wait:2000,speed:60,words:'Update to 1.0.8! '}]">
+
+    </vue-typed-strings>
+    <span class="vue-typed-string-cursor" style="color: #f00">_</span>
+</div>
+<div v-show="playing2" style="text-align: center">
+   <a href="http://baidu.com"> <vue-typed-strings style="color: #ff0000;font-weight: bold;text-decoration: underline" :speed="100" :playing.sync="playing2" :loop="true"
+                       :strings="[{wait:1000,speed:60,words:' your content wherever you are. '},{wait:2000,speed:60,words:'Update to 1.0.8! '}]">
+    </vue-typed-strings> </a> <span class="vue-typed-string-cursor">|</span>
+</div>
+<div @click="playing=!playing" style="border: 1px solid #000;cursor: pointer">Play[{{playing}}}]</div>
+
+<script src="dist/vue.min.js"></script>
+<script src="dist/smart.min.js"></script>
+<script src="dist/vue-typed-strings.js"></script>
+
+<script>
+
+    Smart.Css.createSmartCssStyle('.blur', {filter: 'blur(0px);'});
+    // Smart.Css.smartCss(document.querySelector('.blur'),{filter:'blur(10px);',width:'100%'});
+    new Vue({
+        el: 'body',
+        components: {
+            VueTypedStrings: VueTypedStrings
+        },
+        data: {playing:true,playing2:false},
+        methods: {
+            updateState: function (playing) {
+                console.log(playing);
+            }
+        }
+    })
+
+
+</script>
+</body>
+</html>
