@@ -24,20 +24,30 @@
         font-family: Roboto, sans-serif;
         font-size: 2.75rem;
     }
+    a{
+        text-decoration: none;
+    }
+    a:hover{
+
+    }
+    .string1{
+        color: #0086b3;font-weight: bold;text-decoration:line-through
+    }
 
 </style>
 <body>
 <div style="text-align: center">
-    Pyro : <vue-typed-strings style="color: #0086b3;font-weight: bold;text-decoration:line-through" :speed="100" @stoped="playing2=true" :playing.sync="playing" :loop="false"
+    Pyro : <vue-typed-strings :cursor="2" class="string1" :speed="100" @stoped="playing2=true" :playing.sync="playing" :loop="false"
                        :strings="[{wait:1000,speed:60,words:' your content wherever you are. '},{wait:2000,speed:60,words:'Update to 1.0.8! '}]">
-
+    <span style="color: #000000;text-align: left;box-sizing: border-box;text-rendering: optimizeLegibility!important;">|</span>
     </vue-typed-strings>
-    <span class="vue-typed-string-cursor" style="color: #f00">_</span>
+
 </div>
 <div v-show="playing2" style="text-align: center">
-   <a href="http://baidu.com"> <vue-typed-strings style="color: #ff0000;font-weight: bold;text-decoration: underline" :speed="100" :playing.sync="playing2" :loop="true"
-                       :strings="[{wait:1000,speed:60,words:' your content wherever you are. '},{wait:2000,speed:60,words:'Update to 1.0.8! '}]">
-    </vue-typed-strings> </a> <span class="vue-typed-string-cursor">|</span>
+   <a href="http://baidu.com"> <vue-typed-strings style="color: #003366;font-weight: bold; border-bottom: 4px solid #ff0000;line-height: 1.5em" :speed="100" :playing.sync="playing2" :loop="true"
+                       :strings="[{wait:1000,speed:60,words:'your content wherever you are'},{wait:2000,speed:60,words:'尤其是在节目中也是经常能够看到女明星身穿背带裤亮相的场景'}]">
+   <span style="color: #0086b3;text-align: left;box-sizing: border-box;">|</span>
+   </vue-typed-strings> </a>
 </div>
 <div @click="playing=!playing" style="border: 1px solid #000;cursor: pointer">Play[{{playing}}}]</div>
 

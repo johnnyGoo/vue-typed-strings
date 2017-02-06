@@ -1,6 +1,6 @@
 <template>
-    <span>
-{{words}}<span class="vue-typed-string-cursor"><slot></slot></span>
+    <span><span :style="style" :class="class">{{words}}</span>
+        <span v-show="cursorDisplay" class="vue-typed-string-cursor"><slot></slot></span>
     </span>
 </template>
 <style>
@@ -10,6 +10,7 @@
         -moz-animation: vue_typed_string_cursor_blink 0.7s infinite;
         animation: vue_typed_string_cursor_blink 0.7s infinite;
     }
+
     @keyframes vue_typed_string_cursor_blink {
         0% {
             opacity: 1;
@@ -81,6 +82,15 @@
                 default: function () {
                     return [];
                 }
+            }, style: {
+                type: String,
+                default: ''
+            }, class: {
+                type: String,
+                default: ''
+            }, cursor: {
+                type: Number,
+                default: 1//cursor 0不显示光标 1 正常 2 stoped 后隐藏光标 3 输入不显示stoped后显示
             }
         },
         data: function () {
@@ -92,7 +102,7 @@
                 currentString: 0,
                 currentCount: 0,
                 direct: 1,
-                stoped:false,
+                stoped: false,
                 iv: 0
             }
         },
@@ -109,9 +119,9 @@
 
         methods: {
             doplay: function () {
-                if(this.stoped){
-                    this.stoped=false;
-                    this.direct=-1;
+                if (this.stoped) {
+                    this.stoped = false;
+                    this.direct = -1;
                 }
                 this.enterFrame.call(this);
                 this.$emit('played');
@@ -137,7 +147,7 @@
                         nextTime = string.wait || 1000
                     } else {
                         this.playing = false;
-                        this.stoped=true;
+                        this.stoped = true;
                         this.$emit('stoped');
                     }
                 } else if (this.currentCount == 0 && this.direct == -1) {
@@ -161,8 +171,23 @@
 
             }
         },
-        computed: {},
+        computed: {
+            cursorDisplay: function () {
+                if (this.cursor == 0) {
+                    return false
+
+                }else if(this.cursor == 1) {
+                    return true
+                }else if(this.cursor == 2) {
+                    return !this.stoped;
+                }else if(this.cursor == 3) {
+                    return this.stoped;
+                }
+
+            }
+        },
         ready: function () {
+            console.log(this.style)
             if (this.playing) {
                 this.doplay();
             }
